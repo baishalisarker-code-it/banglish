@@ -1,0 +1,2 @@
+# BanglaBridge Requirements
+# Core runtime runs on standard Python 3 library with zero external dependencies.

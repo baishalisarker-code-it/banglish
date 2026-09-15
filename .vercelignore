@@ -2,6 +2,5 @@ backend/
 notebooks/
 render.yaml
 *.ipynb
-*.py
 .env
 .env.*

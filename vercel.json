@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "outputDirectory": "frontend",
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://banglabridge-backend.onrender.com/api/:path*"
+      "source": "/api/translate",
+      "destination": "https://banglabridge-backend.onrender.com/api/translate"
+    },
+    {
+      "source": "/api/health",
+      "destination": "https://banglabridge-backend.onrender.com/api/health"
     }
   ]
 }
