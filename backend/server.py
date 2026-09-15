@@ -180,9 +180,18 @@ def start_server(port: int = 8080, host: str = "0.0.0.0"):
 
 if __name__ == "__main__":
     import sys
-    # Read PORT and HOST from environment (standard on Render, Railway, Heroku) or CLI
-    port = int(os.environ.get("PORT", sys.argv[1] if len(sys.argv) > 1 else 8080))
-    host = os.environ.get("HOST", "0.0.0.0")
+    raw_port = str(os.environ.get("PORT", "")).strip()
+    if raw_port and raw_port.isdigit():
+        port = int(raw_port)
+    elif len(sys.argv) > 1 and sys.argv[1].strip().isdigit():
+        port = int(sys.argv[1].strip())
+    else:
+        # Default to 10000 on Render or 8080 locally
+        port = 10000 if os.environ.get("RENDER") else 8080
+
+    raw_host = str(os.environ.get("HOST", "")).strip()
+    host = raw_host if raw_host else "0.0.0.0"
+
     server = start_server(port=port, host=host)
     try:
         server.serve_forever()
