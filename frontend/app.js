@@ -372,8 +372,10 @@ document.addEventListener("DOMContentLoaded", () => {
     presetContainer.appendChild(btn);
   });
 
-  // Base API configuration (supports cross-origin Vercel -> Render backend or relative)
-  const API_BASE = (window.BANGLABRIDGE_API_BASE || localStorage.getItem("banglabridge_api_base") || "").replace(/\/$/, "");
+  // Base API configuration: use local relative path if on localhost, or live Render backend if hosted on Vercel/cloud
+  const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  const DEFAULT_CLOUD_API = "https://banglabridge-backend.onrender.com";
+  let API_BASE = (window.BANGLABRIDGE_API_BASE || localStorage.getItem("banglabridge_api_base") || (isLocal ? "" : DEFAULT_CLOUD_API)).replace(/\/$/, "");
 
   // Check Backend Health
   async function checkBackendHealth() {
@@ -381,12 +383,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch(`${API_BASE}/api/health`, { method: "GET" });
       if (res.ok) {
         const data = await res.json();
-        const hostLabel = API_BASE ? "Cloud Backend" : "Local REST API";
+        const hostLabel = API_BASE ? "Render Cloud API" : "Local REST API";
         connectionBadge.innerHTML = `<span class="pulse-dot"></span> ${hostLabel} Connected (${data.nllb_available ? 'PyTorch NLLB-200' : 'Lightweight Engine'})`;
         return true;
       }
     } catch {
-      // Backend not responding (e.g. static GitHub Pages / Vercel without backend)
+      // Backend waking up or offline
     }
     connectionBadge.innerHTML = `<span class="pulse-dot" style="background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span> Client-Side Engine (Ready)`;
     return false;
