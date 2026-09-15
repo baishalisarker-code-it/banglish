@@ -372,10 +372,10 @@ document.addEventListener("DOMContentLoaded", () => {
     presetContainer.appendChild(btn);
   });
 
-  // Base API configuration: use local relative path if on localhost, or live Render backend if hosted on Vercel/cloud
+  // Base API configuration: extracted dynamically from .env / Vercel Environment Variables
   const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-  const DEFAULT_CLOUD_API = "https://banglabridge-backend.onrender.com";
-  let API_BASE = (window.BANGLABRIDGE_API_BASE || localStorage.getItem("banglabridge_api_base") || (isLocal ? "" : DEFAULT_CLOUD_API)).replace(/\/$/, "");
+  const envBackendUrl = (window.APP_CONFIG && window.APP_CONFIG.BACKEND_URL) ? window.APP_CONFIG.BACKEND_URL : "";
+  let API_BASE = (window.BANGLABRIDGE_API_BASE || localStorage.getItem("banglabridge_api_base") || (isLocal ? "" : envBackendUrl)).replace(/\/$/, "");
 
   // Check Backend Health
   async function checkBackendHealth() {

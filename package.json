@@ -1,0 +1,8 @@
+{
+  "name": "banglabridge",
+  "version": "1.0.0",
+  "description": "Affective Bengali-English Translation System",
+  "scripts": {
+    "build": "python generate_config.py"
+  }
+}

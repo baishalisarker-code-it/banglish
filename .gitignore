@@ -5,7 +5,10 @@ __pycache__/
 *.so
 .Python
 
-# Environments
+# Environments & Secrets
+.env
+.env.*
+!.env.example
 .venv/
 venv/
 env/
