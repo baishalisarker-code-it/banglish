@@ -1,0 +1,47 @@
+# Python Bytecode & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter & IPython Checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Model Checkpoints & Large Weights (Keep repo lightweight for GitHub/Vercel)
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+checkpoints/
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.temp
+
+# OS Artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vercel & Deployment Artifacts
+.vercel/
+dist/
+build/

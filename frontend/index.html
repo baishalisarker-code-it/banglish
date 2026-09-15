@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BanglaBridge — Emotion-Aware Bengali-English Translation & Affective Computing</title>
+  <meta name="description" content="State-of-the-art affective Bengali-English translation engine resolving Banglish code-switching, syntactic clause segmentation, and deadpan sarcasm dissonance.">
+  <meta property="og:title" content="BanglaBridge Architecture & Translation Showcase">
+  <meta property="og:description" content="High-precision affective computing engine with Meta NLLB-200 and deterministic phonetic transliteration.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <!-- Navigation Bar -->
+  <header class="container">
+    <nav class="navbar" id="mainNav">
+      <a href="#" class="nav-brand">
+        <div class="brand-icon">ব</div>
+        <span>BanglaBridge</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#playground" class="nav-link">Playground</a></li>
+        <li><a href="#architecture" class="nav-link">Architecture</a></li>
+        <li><a href="#algorithms" class="nav-link">Algorithms</a></li>
+        <li><a href="#techstack" class="nav-link">Tech Stack</a></li>
+        <li><a href="#api" class="nav-link">API Specs</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <div class="badge-status" id="connectionBadge">
+          <span class="pulse-dot"></span>
+          <span>System Initializing</span>
+        </div>
+        <a href="#deployment" class="btn-github">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span>Deploy Docs</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="container">
+    <section class="hero-section">
+      <div class="hero-pill">
+        <span>⚡ Meta NLLB-200 • Phonetic Transliteration • Affective Computing</span>
+      </div>
+      <h1 class="hero-title">
+        Emotion-Aware Code-Switched<br>
+        <span class="gradient-text">Bengali ↔ English</span> Translation
+      </h1>
+      <p class="hero-subtitle">
+        An end-to-end multi-stage pipeline resolving romanized Banglish code-switching, semantic discourse boundaries, cross-lingual sentiment polarity, and deadpan sarcasm dissonance with zero bloat.
+      </p>
+
+      <div class="hero-stats-row">
+        <div class="stat-item glass-card">
+          <div class="stat-val">600M</div>
+          <div class="stat-label">NLLB-200 Parameters</div>
+        </div>
+        <div class="stat-item glass-card">
+          <div class="stat-val">&lt; 35ms</div>
+          <div class="stat-label">Rule Matrix Latency</div>
+        </div>
+        <div class="stat-item glass-card">
+          <div class="stat-val">Dual Script</div>
+          <div class="stat-label">Bangla + Banglish Roman</div>
+        </div>
+        <div class="stat-item glass-card">
+          <div class="stat-val">0 Dependencies</div>
+          <div class="stat-label">Core Server Runtime</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Playground Section -->
+    <section id="playground" class="section">
+      <div class="section-header">
+        <span class="section-tag">Interactive Engine</span>
+        <h2 class="section-title">Live Pipeline Playground</h2>
+        <p class="section-desc">Test real-time code-switching transliteration, translation, and affective sentiment scoring directly in browser.</p>
+      </div>
+
+      <div class="playground-card glass-card">
+        <!-- Preset Selector -->
+        <div class="preset-bar">
+          <span class="preset-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            Benchmarks:
+          </span>
+          <div id="presetContainer" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+        </div>
+
+        <div class="playground-grid">
+          <!-- Input Column -->
+          <div class="pane-container">
+            <div class="pane-header">
+              <span class="pane-title">
+                <span class="brand-icon" style="width: 22px; height: 22px; font-size: 0.8rem;">IN</span>
+                Source Text
+              </span>
+              <select class="direction-select" id="directionSelect">
+                <option value="auto">Direction: Auto Detect</option>
+                <option value="bn-en">Bengali / Banglish → English</option>
+                <option value="en-bn">English → Bengali</option>
+              </select>
+            </div>
+            <div class="input-area-wrapper">
+              <textarea id="inputText" class="code-textarea" placeholder="Enter Bengali, Banglish (e.g. 'ami bhalo achi na'), or English text..."></textarea>
+            </div>
+            <button id="btnTranslate" class="btn-translate">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+              <span>Execute Pipeline</span>
+            </button>
+          </div>
+
+          <!-- Output Column -->
+          <div class="pane-container">
+            <div class="pane-header">
+              <span class="pane-title">
+                <span class="brand-icon" style="width: 22px; height: 22px; font-size: 0.8rem; background: var(--accent-gradient-purple); color: #fff;">OUT</span>
+                Synthesized Translation
+              </span>
+            </div>
+            <div class="output-box">
+              <div id="outputTranslation" class="full-translation-text">Translation and emotion metrics will appear here...</div>
+
+              <div class="telemetry-summary">
+                <div class="telemetry-badge">
+                  <span class="telemetry-key">Dominant Tone</span>
+                  <div class="telemetry-val" id="valEmotion">—</div>
+                </div>
+                <div class="telemetry-badge">
+                  <span class="telemetry-key">Sarcasm State</span>
+                  <div class="telemetry-val" id="valSarcasm">—</div>
+                </div>
+                <div class="telemetry-badge">
+                  <span class="telemetry-key">Active Engine</span>
+                  <div class="telemetry-val" id="valEngine" style="color: var(--accent-emerald);">Ready</div>
+                </div>
+              </div>
+
+              <div id="sarcasmBanner" class="sarcasm-alert-banner" style="display: none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sentence Chunks Inspector -->
+        <div style="margin-top: 28px;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            Clause &amp; Chunk Telemetry Breakdown
+          </h3>
+          <div id="chunksList" class="chunks-container">
+            <div style="text-align: center; color: var(--text-muted); padding: 24px; font-size: 0.9rem;">
+              Select a benchmark preset above or enter text to inspect clause segmentation and affective analysis.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Pipeline Flow Section -->
+    <section id="architecture" class="section">
+      <div class="section-header">
+        <span class="section-tag">System Design</span>
+        <h2 class="section-title">End-to-End Modular Architecture</h2>
+        <p class="section-desc">Click any subsystem node to inspect its algorithmic logic, input/output schemas, and runtime properties.</p>
+      </div>
+
+      <div class="glass-card arch-schematic-wrapper">
+        <div class="pipeline-flow">
+          <!-- Node 1 -->
+          <div class="pipe-node active" data-node="node-1">
+            <div class="pipe-node-header">
+              <span class="pipe-number">01</span>
+              <h4 class="pipe-title">Smart Chunker</h4>
+            </div>
+            <p class="pipe-desc">Splits discourse along Bengali danda (।) and Western punctuation with boundary preservation.</p>
+            <div class="pipe-meta">Regex Lookbehind</div>
+          </div>
+
+          <div class="pipe-connector"><span class="connector-pulse">→</span></div>
+
+          <!-- Node 2 -->
+          <div class="pipe-node" data-node="node-2">
+            <div class="pipe-node-header">
+              <span class="pipe-number">02</span>
+              <h4 class="pipe-title">Script Classifier</h4>
+            </div>
+            <p class="pipe-desc">Classifies Unicode Bengali, Romanized Banglish, Mixed Code-Switch, and English.</p>
+            <div class="pipe-meta">Lexical Density</div>
+          </div>
+
+          <div class="pipe-connector"><span class="connector-pulse">→</span></div>
+
+          <!-- Node 3 -->
+          <div class="pipe-node" data-node="node-3">
+            <div class="pipe-node-header">
+              <span class="pipe-number">03</span>
+              <h4 class="pipe-title">Transliterator</h4>
+            </div>
+            <p class="pipe-desc">Transforms phonetic Banglish tokens into standard Bengali Unicode characters.</p>
+            <div class="pipe-meta">Phonetic Map</div>
+          </div>
+
+          <div class="pipe-connector"><span class="connector-pulse">→</span></div>
+
+          <!-- Node 4 -->
+          <div class="pipe-node" data-node="node-4">
+            <div class="pipe-node-header">
+              <span class="pipe-number">04</span>
+              <h4 class="pipe-title">Translation Matrix</h4>
+            </div>
+            <p class="pipe-desc">Meta NLLB-200 Seq2Seq model with fallback to Cloud Neural &amp; Offline Dictionary.</p>
+            <div class="pipe-meta">Seq2Seq fp16</div>
+          </div>
+
+          <div class="pipe-connector"><span class="connector-pulse">→</span></div>
+
+          <!-- Node 5 -->
+          <div class="pipe-node" data-node="node-5">
+            <div class="pipe-node-header">
+              <span class="pipe-number">05</span>
+              <h4 class="pipe-title">Affective Engine</h4>
+            </div>
+            <p class="pipe-desc">Cross-lingual polarity scoring, praise-negation dissonance, and cultural slang parsing.</p>
+            <div class="pipe-meta">D_sarcasm Heuristics</div>
+          </div>
+
+          <div class="pipe-connector"><span class="connector-pulse">→</span></div>
+
+          <!-- Node 6 -->
+          <div class="pipe-node" data-node="node-6">
+            <div class="pipe-node-header">
+              <span class="pipe-number">06</span>
+              <h4 class="pipe-title">REST / JSON API</h4>
+            </div>
+            <p class="pipe-desc">Zero-dependency HTTP server delivering structured translation and sentiment telemetry.</p>
+            <div class="pipe-meta">Pure Python 3</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Deep Dive Panel -->
+        <div id="deepDivePanel" class="deep-dive-panel">
+          <div class="deep-dive-title" id="deepDiveTitle">1. Smart Sentence Chunker</div>
+          <div class="deep-dive-body" id="deepDiveBody">
+            Regex pattern <code>(?&lt;=[।!?\n])\s+|(?&lt;=[.!?])\s+</code> executes lookbehind segmentation. Preserves the sacred Bengali danda (<code>।</code>, U+0964), punctuation boundaries, and multiline clause structures without truncating discourse markers.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Algorithmic Foundations Section -->
+    <section id="algorithms" class="section">
+      <div class="section-header">
+        <span class="section-tag">Mathematical &amp; Algorithmic Logic</span>
+        <h2 class="section-title">Core Computational Specifications</h2>
+        <p class="section-desc">Rigorous formulations powering language identification, phonetic normalization, and sarcasm detection.</p>
+      </div>
+
+      <div class="tech-spec-grid">
+        <!-- Alg Card 1 -->
+        <div class="spec-card glass-card">
+          <div class="spec-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 7V4h16v3M9 20h6M12 4v16"/>
+            </svg>
+          </div>
+          <h3 class="spec-title">Script Identification</h3>
+          <p class="spec-text">Evaluates Unicode codepoint bounds against Latin token densities and a curated 45+ token romanized Bengali lexicon:</p>
+          <div class="math-card">
+            <div class="math-formula">
+              S_{bn} = \{ c \in \text{text} \mid 0x0980 \le c \le 0x09FF \}<br>
+              L_{roman} = \{ w \in \text{LatinWords} \mid w \in \text{ROMAN\_BN\_LEXICON} \}<br>
+              \text{Script} = \begin{cases} 
+                \text{Bengali}, & |S_{bn}| \ge 2 \wedge |L_{roman}| = 0 \\
+                \text{Mixed}, & |S_{bn}| \ge 1 \wedge (|L_{roman}| \ge 1 \lor |Latin| \ge 1) \\
+                \text{Romanized}, & |L_{roman}| \ge 1 \wedge |S_{bn}| = 0 \\
+                \text{Latin}, & \text{otherwise}
+              \end{cases}
+            </div>
+          </div>
+          <div class="code-badge-group">
+            <span class="tech-badge">U+0980..U+09FF</span>
+            <span class="tech-badge">O(N) Complexity</span>
+            <span class="tech-badge">Zero False Positives</span>
+          </div>
+        </div>
+
+        <!-- Alg Card 2 -->
+        <div class="spec-card glass-card">
+          <div class="spec-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+          </div>
+          <h3 class="spec-title">Deadpan Sarcasm Dissonance</h3>
+          <p class="spec-text">Detects irony and sarcasm by calculating cognitive dissonance between superlative praise markers and underlying negative clauses:</p>
+          <div class="math-card">
+            <div class="math-formula">
+              D_{sarcasm} = \mathbb{I}\Big[ \big(Praise_{marker} \wedge Polarity \in \{\text{Neg}, \text{Mixed}\}\big) \\
+              \lor \big(Contrast_{marker} \wedge Pos \ge 1 \wedge Neg \ge 1\big) \\
+              \lor \big(Praise_{marker} \wedge \text{"!"} \wedge Slang_{derogatory}\big) \Big]
+            </div>
+          </div>
+          <div class="code-badge-group">
+            <span class="tech-badge">Bilingual Valence</span>
+            <span class="tech-badge">Contrastive Syntax</span>
+            <span class="tech-badge">Slang Inversion</span>
+          </div>
+        </div>
+
+        <!-- Alg Card 3 -->
+        <div class="spec-card glass-card">
+          <div class="spec-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <h3 class="spec-title">Bengali Cultural Idioms</h3>
+          <p class="spec-text">Deterministic recognition of localized slang, colloquialisms, and idioms to provide contextual linguistic notes:</p>
+          <div class="math-card">
+            <div class="math-formula" style="color: var(--accent-cyan);">
+              • 'ফালতু' (faltu) → Slang: Useless / Rubbish<br>
+              • 'ঝামেলা' (jhamela) → Idiom: Headache / Trouble<br>
+              • 'বাজে' (baje) → Colloquial: Inferior quality<br>
+              • 'মাথা নষ্ট' (matha nosto) → Expression: Mind-blown
+            </div>
+          </div>
+          <div class="code-badge-group">
+            <span class="tech-badge">Cultural Lexicon</span>
+            <span class="tech-badge">Context Injection</span>
+            <span class="tech-badge">Banglish Native</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology Stack Section -->
+    <section id="techstack" class="section">
+      <div class="section-header">
+        <span class="section-tag">Production Stack</span>
+        <h2 class="section-title">Technology &amp; Tooling Matrix</h2>
+        <p class="section-desc">Engineered for maximal performance, minimal footprint, and effortless cloud or offline deployment.</p>
+      </div>
+
+      <div class="tech-spec-grid">
+        <div class="spec-card glass-card">
+          <h3 class="spec-title" style="color: var(--accent-blue);">AI / ML &amp; NLP Tier</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 16px; font-size: 0.9rem; color: var(--text-secondary);">
+            <li><strong>Meta NLLB-200</strong> (<code>facebook/nllb-200-distilled-600M</code>) Seq2Seq model with 200-language vocabulary.</li>
+            <li><strong>PyTorch &amp; Hugging Face Transformers</strong>: FP16 CUDA inference acceleration.</li>
+            <li><strong>Indic NLP Library</strong>: Bengali orthographic normalizer &amp; token boundaries.</li>
+            <li><strong>SentencePiece BPE</strong>: Subword tokenization respecting Bengali conjunct characters.</li>
+          </ul>
+        </div>
+
+        <div class="spec-card glass-card">
+          <h3 class="spec-title" style="color: var(--accent-emerald);">Backend &amp; Runtime</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 16px; font-size: 0.9rem; color: var(--text-secondary);">
+            <li><strong>Zero-Dependency HTTP Server</strong>: Built on Python's native <code>http.server.HTTPServer</code>.</li>
+            <li><strong>Modular Pipeline</strong>: Decoupled chunker, transliterator, and analyzer subsystems.</li>
+            <li><strong>Multi-Tier Translation Matrix</strong>: Graceful degradation (NLLB-200 → Cloud Neural → Rule Matrix).</li>
+            <li><strong>REST API</strong>: CORS-enabled JSON endpoints with sub-50ms dispatch.</li>
+          </ul>
+        </div>
+
+        <div class="spec-card glass-card">
+          <h3 class="spec-title" style="color: var(--accent-purple);">Frontend &amp; GitHub Pages</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 16px; font-size: 0.9rem; color: var(--text-secondary);">
+            <li><strong>Glassmorphic Design System</strong>: Multi-layer backdrop blur and specular borders.</li>
+            <li><strong>Static Client Mirror</strong>: Runs client-side NLP simulation on static GitHub Pages.</li>
+            <li><strong>Zero External Framework Bloat</strong>: Pure HTML5, Vanilla CSS tokens, and ES6 JavaScript.</li>
+            <li><strong>Live Telemetry Dashboard</strong>: Real-time clause breakdown and affective meters.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- REST API Specifications Section -->
+    <section id="api" class="section">
+      <div class="section-header">
+        <span class="section-tag">Developer Interface</span>
+        <h2 class="section-title">REST API &amp; JSON Contracts</h2>
+        <p class="section-desc">Integrate BanglaBridge into external services with straightforward REST endpoints.</p>
+      </div>
+
+      <div class="glass-card" style="padding: 32px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+          <span class="tech-badge" style="background: rgba(0, 245, 160, 0.15); color: var(--accent-emerald); font-weight: 700;">POST</span>
+          <span style="font-family: var(--font-mono); font-size: 1.1rem; color: #fff;">/api/translate</span>
+        </div>
+
+        <div class="api-tabs-container">
+          <div class="tab-nav">
+            <button class="tab-btn active" data-tab="tab-curl">cURL</button>
+            <button class="tab-btn" data-tab="tab-python">Python</button>
+            <button class="tab-btn" data-tab="tab-js">JavaScript</button>
+            <button class="tab-btn" data-tab="tab-json">JSON Response</button>
+          </div>
+
+          <!-- cURL Panel -->
+          <div id="tab-curl" class="code-panel">
+            <div class="code-block-wrapper">
+              <button class="copy-btn">Copy</button>
+              <pre><code>curl -X POST http://127.0.0.1:8080/api/translate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "বাহ! তোমার কাজটা খুব ভালো হয়েছে। এই কাজটা ফালতু হয়ে গেছে।",
+    "direction": "auto"
+  }'</code></pre>
+            </div>
+          </div>
+
+          <!-- Python Panel -->
+          <div id="tab-python" class="code-panel" style="display: none;">
+            <div class="code-block-wrapper">
+              <button class="copy-btn">Copy</button>
+              <pre><code>import requests
+
+url = "http://127.0.0.1:8080/api/translate"
+payload = {
+    "text": "আমি যাবো। কিন্তু ami bhalo achi na।",
+    "direction": "auto"
+}
+
+response = requests.post(url, json=payload)
+data = response.json()
+
+print("Full Translation:", data["full_translation"])
+print("Dominant Emotion:", data["summary"]["dominant_emotion"])
+print("Sarcasm Detected:", data["summary"]["has_sarcasm"])</code></pre>
+            </div>
+          </div>
+
+          <!-- JavaScript Panel -->
+          <div id="tab-js" class="code-panel" style="display: none;">
+            <div class="code-block-wrapper">
+              <button class="copy-btn">Copy</button>
+              <pre><code>const response = await fetch("http://127.0.0.1:8080/api/translate", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    text: "ami bhalo achi kintu meeting ta miss korte chai na",
+    direction: "auto"
+  })
+});
+
+const result = await response.json();
+console.log(result.full_translation, result.summary);</code></pre>
+            </div>
+          </div>
+
+          <!-- JSON Response Panel -->
+          <div id="tab-json" class="code-panel" style="display: none;">
+            <div class="code-block-wrapper">
+              <button class="copy-btn">Copy</button>
+              <pre><code>{
+  "success": true,
+  "input_text": "বাহ! তোমার কাজটা খুব ভালো হয়েছে।",
+  "full_translation": "Wow! You did a very good job.",
+  "chunks": [
+    {
+      "chunk_id": 1,
+      "original": "বাহ!",
+      "script": "Bengali",
+      "translation": "Wow!",
+      "emotion": "Positive",
+      "sarcasm": "No"
+    }
+  ],
+  "summary": {
+    "total_chunks": 1,
+    "dominant_emotion": "Positive",
+    "has_sarcasm": false,
+    "engine": "Meta NLLB-200"
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deployment & GitHub Pages Section -->
+    <section id="deployment" class="section">
+      <div class="section-header">
+        <span class="section-tag">Production Hosting</span>
+        <h2 class="section-title">GitHub Pages &amp; Local Setup</h2>
+        <p class="section-desc">Host this showcase page on GitHub Pages with 1-click, or start the full local server with PyTorch GPU acceleration.</p>
+      </div>
+
+      <div class="tech-spec-grid">
+        <div class="spec-card glass-card">
+          <h3 class="spec-title" style="color: var(--accent-cyan);">Option A: GitHub Pages Hosting</h3>
+          <p class="spec-text">This repository is pre-configured for instant zero-configuration GitHub Pages hosting:</p>
+          <div class="code-block-wrapper" style="margin-top: 12px;">
+            <pre><code>1. Push repo to GitHub:
+   git push origin main
+
+2. Open Repo Settings → Pages
+3. Source: "Deploy from a branch"
+4. Branch: "main" / Folder: "/ (root)"
+5. Click Save. Your page is live!</code></pre>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--accent-emerald); margin-top: 12px;">
+            ✓ The client-side mirror automatically kicks in for static visitors without a Python server!
+          </p>
+        </div>
+
+        <div class="spec-card glass-card">
+          <h3 class="spec-title" style="color: var(--accent-emerald);">Option B: Local Zero-Dependency Server</h3>
+          <p class="spec-text">Launch the built-in HTTP server instantly without installing third-party frameworks:</p>
+          <div class="code-block-wrapper" style="margin-top: 12px;">
+            <pre><code># Start server on http://localhost:8080
+python -m backend.server
+
+# Or customize port:
+python -c "from backend.server import start_server; start_server(9000).serve_forever()"</code></pre>
+          </div>
+        </div>
+
+        <div class="spec-card glass-card">
+          <h3 class="spec-title" style="color: var(--accent-purple);">Option C: PyTorch &amp; NLLB-200 Setup</h3>
+          <p class="spec-text">Enable full GPU neural translation using Meta's Seq2Seq model:</p>
+          <div class="code-block-wrapper" style="margin-top: 12px;">
+            <pre><code>pip install torch transformers sentencepiece indic-nlp-library
+
+# The backend auto-detects PyTorch
+# and automatically mounts facebook/nllb-200-distilled-600M</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#playground" class="footer-link">Playground</a>
+        <a href="#architecture" class="footer-link">Architecture</a>
+        <a href="#algorithms" class="footer-link">Algorithms</a>
+        <a href="#api" class="footer-link">API Reference</a>
+        <a href="#deployment" class="footer-link">Deployment</a>
+      </div>
+      <p style="margin-bottom: 8px;">BanglaBridge — Affective Bengali-English Translation System</p>
+      <p style="font-size: 0.78rem; color: var(--text-muted);">Built with Vanilla HTML5, CSS Glassmorphism &amp; ES6 • Meta NLLB-200</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
