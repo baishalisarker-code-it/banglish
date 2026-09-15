@@ -1,13 +1,3 @@
 {
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/api/translate",
-      "destination": "https://banglabridge-backend.onrender.com/api/translate"
-    },
-    {
-      "source": "/api/health",
-      "destination": "https://banglabridge-backend.onrender.com/api/health"
-    }
-  ]
+  "version": 2
 }
