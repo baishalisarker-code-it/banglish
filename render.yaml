@@ -2,7 +2,7 @@ services:
   - type: web
     name: banglabridge-backend
     runtime: python
-    buildCommand: ""
+    buildCommand: "pip install -r backend/requirements.txt"
     startCommand: "python -m backend.server"
     healthCheckPath: "/api/health"
     envVars:

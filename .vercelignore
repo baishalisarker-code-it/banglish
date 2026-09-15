@@ -1,9 +1,7 @@
-# Tell Vercel to ignore backend Python files and requirements.txt
-# (Backend is deployed on Render, Vercel only hosts the static frontend)
 backend/
 notebooks/
-requirements.txt
 render.yaml
 *.ipynb
+*.py
 .env
 .env.*

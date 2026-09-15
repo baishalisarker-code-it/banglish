@@ -1,4 +1,4 @@
-# BanglaBridge Backend Requirements
+# BanglaBridge Backend Requirements (for Render)
 # Core runtime has 0 external dependencies (runs on Python 3 standard library)!
 #
 # If you want to enable Tier 1 Meta NLLB-200 Seq2Seq model on Render:
